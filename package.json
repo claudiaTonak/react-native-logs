@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "install": "tsc -p .",
+    "install": "build",
     "test": "jest",
     "test:verbose": "jest --verbose",
     "test:cov": "jest --coverage",
