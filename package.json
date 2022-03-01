@@ -38,6 +38,7 @@
   "homepage": "https://github.com/onubo/react-native-logs#readme",
   "devDependencies": {
     "jest": "^27.4.5",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "react": "^16.13.1"
   }
 }
