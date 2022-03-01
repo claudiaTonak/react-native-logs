@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 import { transportFunctionType } from "../index";
 
 const availableColors: any = {
@@ -19,6 +21,28 @@ const availableColors: any = {
   cyanBright: 96,
   whiteBright: 97,
 };
+const webColor: any = {
+  default: null,
+  black: 'background-color: #fff;color:#000000',
+  red: 'background-color: #FF0000;color:#fff',
+  green: 'background-color: #00FF00;color:#414141',
+  yellow: 'background-color: #ff0;color:#414141',
+  blue: 'background-color: #0000ff;color:#fff',
+  magenta: 'background-color: #FF00FF;color:#e1e1e1',
+  cyan: 'background-color: #00ffff;color:#414141',
+  white: 'background-color: #414141;color:#fff',
+  grey: 'background-color: #A1A1A1;color:#414141',
+  redBright: 'background-color: #ff5000;color:#414141',
+  greenBright: 'background-color: ##B4ffB4;color:#414141',
+  yellowBright: 'background-color: #ffffb4;color:#414141',
+  blueBright: 'background-color: #00c8ff;color:#414141',
+  magentaBright: 'background-color: #ffb4ff;color:#414141',
+  cyanBright: 'background-color: #b4ffff;color:#414141',
+  whiteBright: 'background-color: #414141;color:#FDFEFF',
+  violet: 'background-color: #9e34bd;color:#e1e1e1',
+  mint: 'background-color: #CFFFE5;color:#414141',
+  orange: 'background-color: #ffb700;color:#414141',
+};
 
 const resetColors = "\x1b[0m";
 
@@ -29,6 +53,17 @@ const consoleTransport: transportFunctionType = (props) => {
   let color;
 
   if (
+    Platform.OS === 'web' &&
+    props.options?.colors &&
+    props.options.colors[props.level.text] &&
+    webColor[props.options.colors[props.level.text]]
+  ) {
+    if (props.level.text === 'mint') {
+      let i = 0;
+      i = i + 1;
+    }
+    color = `${webColor[props.options.colors[props.level.text]]}`;
+  } else if (
     props.options?.colors &&
     props.options.colors[props.level.text] &&
     availableColors[props.options.colors[props.level.text]]
@@ -57,7 +92,10 @@ const consoleTransport: transportFunctionType = (props) => {
     );
   }
 
-  console.log(msg.trim());
+  if (Platform.OS === 'web') {
+    console.log('%c' + msg.trim(), color);
+  } else console.log(msg.trim());
+
 
   return true;
 };
